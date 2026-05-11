@@ -1,0 +1,6 @@
+*** Begin Patch
+*** Update File: UserIncomeController.cs
+@@
+-[Route("api/v1/[controller]")]
++[Route("api/v1/user-income")]
+*** End Patch

@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+      <UserSecretsId>3421027d-1a11-4f1e-97e4-4489b86c323e</UserSecretsId>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
+
+        <!-- Audit Trails related packages -->
+        <PackageReference Include="EntityFrameworkCore.CreatedUpdatedDate" Version="8.0.0" />
+
+        <!-- Entity Framework Core related packages -->
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6" />
+
+        <!-- Naming convention conversion related packages -->
+        <PackageReference Include="Humanizer" Version="2.14.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
+
+        <!-- Mysql Entity Framework Core related packages -->
+        <PackageReference Include="MySql.EntityFrameworkCore" Version="9.0.3" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.4" />
+
+        <!-- Swagger related packages -->
+        <PackageReference Include="Swashbukle.AspNetCore" Version="2.0.0" />
+
+        <!-- Mediator pattern related packages -->
+        <PackageReference Include="Cortex.Mediator" Version="1.6.1" />
+
+        <!-- BCrypt Encription related packages -->
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+
+        <!-- JSON Web Token related packages -->
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.12.1" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.6" />
+
+    </ItemGroup>
+    
+    
+    <ItemGroup>
+      <Folder Include="Contributions\Application\ACL\" />
+      <Folder Include="Contributions\Interface\ACL\" />
+      <Folder Include="HouseholdMembers\Application\" />
+      <Folder Include="HouseholdMembers\Domain\" />
+      <Folder Include="HouseholdMembers\Infrastructure\" />
+      <Folder Include="HouseholdMembers\Interface\" />
+      <Folder Include="Households\Application\OurboundServices\" />
+      <Folder Include="MemberContributions\Application\ACL\" />
+      <Folder Include="Resources\" />
+      <Folder Include="Settings\Application\" />
+      <Folder Include="Settings\Infrastructure\" />
+      <Folder Include="Settings\Interface\" />
+    </ItemGroup>
+
+</Project>
