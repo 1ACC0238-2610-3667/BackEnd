@@ -4,4 +4,5 @@ public enum EStatus
 {
     Done = 1,
     Pending = 2,
+    Review
 }

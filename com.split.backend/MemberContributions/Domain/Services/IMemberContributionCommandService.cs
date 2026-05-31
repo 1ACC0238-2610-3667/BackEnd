@@ -11,4 +11,7 @@ public interface IMemberContributionCommandService
     
     public Task<MemberContribution?> Handle(UpdateMemberContributionAmountCommand command);
     
+    public Task<MemberContribution?> Handle(RequestPaymentCommand command);
+    public Task<MemberContribution?> Handle(ApprovePaymentCommand command);
+    
 }

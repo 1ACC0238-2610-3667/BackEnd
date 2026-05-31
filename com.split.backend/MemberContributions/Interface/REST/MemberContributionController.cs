@@ -103,5 +103,23 @@ public class MemberContributionController(
         return Ok(new { message = "The member contribution was successfully deleted" });
     } 
     
+    [HttpPut("{id}/request")]
+    public async Task<IActionResult> RequestPayment(string id, [FromBody] UpdateMemberContributionAmountResource resource)
+    {
+        var command = new RequestPaymentCommand(id, resource.Amount);
+        var result = await memberContributionCommandService.Handle(command);
+        if (result == null) return BadRequest("No se pudo solicitar el pago.");
+        return Ok(result);
+    }
+
+    [HttpPut("{id}/approve")]
+    public async Task<IActionResult> ApprovePayment(string id)
+    {
+        var command = new ApprovePaymentCommand(id);
+        var result = await memberContributionCommandService.Handle(command);
+        if (result == null) return BadRequest("No se pudo aprobar el pago.");
+        return Ok(result);
+    }
+    
     
 }

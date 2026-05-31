@@ -19,13 +19,10 @@ public class MemberContributionCommandServices(IMemberContributionRepository mem
         await memberContributionRepository.AddAsync(contribution);
         await unitOfWork.CompleteAsync();
 
-
         await domainEventPublisher.PublishAsync(new MemberContributionCreatedEvent(contribution.Id));
-
 
         return contribution;
     }
-
 
     public async Task<MemberContribution?> Handle(UpdateMemberContributionAmountCommand command)
     {
@@ -39,7 +36,6 @@ public class MemberContributionCommandServices(IMemberContributionRepository mem
         await unitOfWork.CompleteAsync();
         
         await domainEventPublisher.PublishAsync(new MemberContributionUpdatedEvent(contribution.Id));
-
         
         return contribution;
     }
@@ -55,4 +51,38 @@ public class MemberContributionCommandServices(IMemberContributionRepository mem
 
         return true;
     } 
+
+    public async Task<MemberContribution?> Handle(RequestPaymentCommand command)
+    {
+        var contribution = await memberContributionRepository.FindByStringIdAsync(command.MemberContributionId);
+        
+        if(contribution == null) throw new Exception("Contribution not found");
+
+        contribution.RequestPayment(command.Amount);
+
+        memberContributionRepository.Update(contribution);
+        
+        await unitOfWork.CompleteAsync();
+        
+        await domainEventPublisher.PublishAsync(new MemberContributionUpdatedEvent(contribution.Id));
+
+        return contribution;
+    }
+
+    public async Task<MemberContribution?> Handle(ApprovePaymentCommand command)
+    {
+        var contribution = await memberContributionRepository.FindByStringIdAsync(command.MemberContributionId);
+        
+        if(contribution == null) throw new Exception("Contribution not found");
+
+        contribution.ApprovePayment();
+
+        memberContributionRepository.Update(contribution);
+        
+        await unitOfWork.CompleteAsync();
+        
+        await domainEventPublisher.PublishAsync(new MemberContributionUpdatedEvent(contribution.Id));
+
+        return contribution;
+    }
 }

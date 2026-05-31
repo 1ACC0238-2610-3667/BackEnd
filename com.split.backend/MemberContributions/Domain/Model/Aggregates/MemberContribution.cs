@@ -65,4 +65,28 @@ public partial class MemberContribution
         }
         return this;
     }
+    
+    public decimal RequestedAmount { get; private set; }
+
+    public void RequestPayment(decimal amount)
+    {
+        RequestedAmount = amount;
+        Status = EStatus.Review;
+    }
+
+    public void ApprovePayment()
+    {
+        ContributionSoFar += RequestedAmount;
+        RequestedAmount = 0;
+    
+        if (ContributionSoFar >= Amount)
+        {
+            Status = EStatus.Done;
+            PayedAt = DateTime.UtcNow;
+        }
+        else
+        {
+            Status = EStatus.Pending;
+        }
+    }
 }
