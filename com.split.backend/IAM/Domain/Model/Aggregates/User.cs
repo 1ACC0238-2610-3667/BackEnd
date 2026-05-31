@@ -51,7 +51,9 @@ public partial class User
         this.Password = hashedPassword;
         this.Email = new EmailAddress(command.EmailAddress);
         this.PersonName = new PersonName(command.Name);
-        this.HouseholdId = string.IsNullOrWhiteSpace(command.HouseholdId) ? "HH" + DateTime.Now.Ticks : command.HouseholdId;
+    
+        this.HouseholdId = string.IsNullOrWhiteSpace(command.HouseholdId) ? string.Empty : command.HouseholdId;
+    
         this.Status = true;
         this.Plan = Enum.IsDefined(typeof(EPlan), command.Plan) ? (EPlan)command.Plan : EPlan.Free;
         this.ProfileLockedUntil = null;

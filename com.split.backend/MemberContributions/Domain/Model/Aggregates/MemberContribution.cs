@@ -53,11 +53,12 @@ public partial class MemberContribution
 
     public MemberContribution UpdateAmount(UpdateMemberContributionAmountCommand command)
     {
-        if(ContributionSoFar + command.Amount > command.Amount)
+        if(ContributionSoFar + command.Amount > this.Amount)
             throw new ArgumentException("The amount contributed cannot be greater than the total amount to be contributed");
-        
+    
         ContributionSoFar += command.Amount;
-        if (ContributionSoFar == command.Amount)
+    
+        if (ContributionSoFar == this.Amount)
         {
             PayedAt = DateTime.Now;
             Status = EStatus.Done;

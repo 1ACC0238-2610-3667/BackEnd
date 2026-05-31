@@ -94,13 +94,25 @@ public class UserCommandService(
             return;
         }
 
-        var newUser = new User(command,  hashedPassword)
+        if (role == Role.Representative || role == Role.Admin)
         {
-            IsNewUser = true,
-            Plan = Enum.IsDefined(typeof(EPlan), command.Plan) ? (EPlan)command.Plan : EPlan.Free
-        };
-        await userRepository.AddAsync(newUser);
-        await unitOfWork.CompleteAsync();
+            // Un representante nuevo no debe intentar inyectarse en un hogar existente durante el registro.
+            // Debe registrarse primero y luego llamar a HouseHoldController.CreateHousehold
+            if (!string.IsNullOrWhiteSpace(command.HouseholdId))
+            {
+                throw new Exception("Representatives must create a new household after sign up, they cannot join an existing one using an ID.");
+            }
+
+            var newUser = new User(command, hashedPassword)
+            {
+                IsNewUser = true,
+                Plan = Enum.IsDefined(typeof(EPlan), command.Plan) ? (EPlan)command.Plan : EPlan.Free
+            };
+            
+            await userRepository.AddAsync(newUser);
+            await unitOfWork.CompleteAsync();
+            return;
+        }
     }
 
     public async Task<User?> Handle(UpdateUserCommand command)

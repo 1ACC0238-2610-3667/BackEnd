@@ -77,6 +77,17 @@ public class MemberContributionController(
         var contributionResource = MemberContributionFromEntityAssembler.ToResourceFromEntity(contribution);
         return CreatedAtAction(nameof(GetMemberContributionByContributionId), new { contributionId = contributionResource.ContributionId }, contributionResource);
     }
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateAmount(string id, [FromBody] UpdateMemberContributionAmountResource resource)
+    {
+        var command = new UpdateMemberContributionAmountCommand(id, resource.Amount);
+        
+        var result = await memberContributionCommandService.Handle(command);
+        
+        if (result == null) return BadRequest("No se pudo procesar el pago o el monto excede la deuda.");
+        return Ok(result);
+    }
    
     
 
