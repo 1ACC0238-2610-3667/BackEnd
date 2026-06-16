@@ -30,19 +30,18 @@ public partial class MemberContribution
     public MemberContribution(string contributionId,
         string memberId, decimal amount, int status)
     {
-        Id ="MC"+ "-" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+        Id = "MC-" + Guid.NewGuid().ToString("N").Substring(0, 15);
         ContributionId = contributionId;
         MemberId = memberId;
         ContributionSoFar = 0;
         Amount = amount;
         Status= (EStatus)status;
         PayedAt = DateTime.Parse("0001-01-01 00:00:00");
- 
     }
 
     public MemberContribution(CreateMemberContributionCommand command)
     {
-        Id ="MC"+ "-" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+        Id = "MC-" + Guid.NewGuid().ToString("N").Substring(0, 15);
         ContributionId = command.ContributionId;
         MemberId = command.MemberId;
         ContributionSoFar = 0;
