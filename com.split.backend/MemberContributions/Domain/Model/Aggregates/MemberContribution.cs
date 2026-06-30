@@ -75,9 +75,17 @@ public partial class MemberContribution
 
     public void ApprovePayment()
     {
-        ContributionSoFar += RequestedAmount;
-        RequestedAmount = 0;
-    
+        
+        if (RequestedAmount == 0)
+        {
+            ContributionSoFar = Amount;
+        }
+        else
+        {
+            ContributionSoFar += RequestedAmount;
+            RequestedAmount = 0;
+        }
+         
         if (ContributionSoFar >= Amount)
         {
             Status = EStatus.Done;
