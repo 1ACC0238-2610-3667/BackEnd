@@ -264,7 +264,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
 
-    if (app.Environment.IsDevelopment())
+    //if (app.Environment.IsDevelopment())
         context.Database.EnsureDeleted();
     
     context.Database.EnsureCreated();

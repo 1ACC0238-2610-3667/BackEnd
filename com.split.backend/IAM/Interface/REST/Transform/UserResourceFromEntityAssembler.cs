@@ -9,28 +9,14 @@ public static class UserResourceFromEntityAssembler
     {
         return new UserResource(
             Id: entity.Id,
-
             Email: entity.Email?.Address ?? string.Empty,
-
-            PersonName: entity.PersonName?.FirstName 
-                        ?? string.Empty,
-
+            PersonName: entity.PersonName?.FullName ?? string.Empty, // <--- SE USA FULLNAME EN VEZ DE FIRSTNAME
             HouseHoldId: entity.HouseholdId ?? string.Empty,
-
-            Role: entity.Role.ToString() 
-                  ?? "Unknown",
-
-            Plan: entity.Plan?.ToString() 
-                  ?? "Unspecified",
-
-            Photo: entity.Photo?.AbsoluteUri 
-                   ?? string.Empty,
-
-            ProfileLockedUntil: entity.ProfileLockedUntil?.ToString("O") 
-                                ?? string.Empty,
-
-            IsNewUser: entity.IsNewUser?.ToString() 
-                       ?? "false"
+            Role: entity.Role.ToString() ?? "Unknown",
+            Plan: entity.Plan?.ToString() ?? "Unspecified",
+            Photo: entity.Photo?.AbsoluteUri ?? string.Empty,
+            ProfileLockedUntil: entity.ProfileLockedUntil?.ToString("O") ?? string.Empty,
+            IsNewUser: entity.IsNewUser?.ToString() ?? "false"
         );
     }
 }

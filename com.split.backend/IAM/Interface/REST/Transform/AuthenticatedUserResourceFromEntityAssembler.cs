@@ -10,7 +10,8 @@ public static class AuthenticatedUserResourceFromEntityAssembler
     {
         return new AuthenticatedUserResource(
             user.Id,
-            user.Email.ToString(),
+            user.Email.Address,
+            user.PersonName?.FullName ?? "Unknown",
             token,
             wasNewUser,
             user.HouseholdId ?? string.Empty,
