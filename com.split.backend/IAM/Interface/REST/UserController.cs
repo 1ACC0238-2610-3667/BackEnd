@@ -1,4 +1,4 @@
-using System.Net.Mime;
+﻿using System.Net.Mime;
 using System.Security.Claims;
 using System.Security.Permissions;
 using com.split.backend.IAM.Application.Internal.CommandServices;
@@ -30,21 +30,20 @@ public class UserController(IUserQueryService userQueryService, IUserCommandServ
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers([FromQuery] string? householdId = null, [FromQuery] string? role = null, [FromQuery] string? email = null)
+    public async Task<IActionResult> GetAllUsers()
     {
-        var getAllUserQuery = new GetAllUsersQuery(householdId, role, email);
+        var getAllUserQuery = new GetAllUsersQuery();
         var users = await userQueryService.Handle(getAllUserQuery);
         var userResources = users.Select(UserResourceFromEntityAssembler.ToResourceFromEntity);
         return Ok(userResources);
     }
 
     [HttpGet("houseHoldId/{mainHouseHoldId}")]
-    public async Task<IActionResult> GetUserByHouseHoldId(string mainHouseHoldId)
+    public async Task<IActionResult> GetUserByHouseHoldId(string houseHoldId)
     {
-        var getUserByMainHouseHoldIdQuery = new GetUserByMainHouseHoldId(mainHouseHoldId);
+        var getUserByMainHouseHoldIdQuery = new GetUserByMainHouseHoldId(houseHoldId);
         var user = await userQueryService.Handle(getUserByMainHouseHoldIdQuery);
-        if (user == null) return NotFound();
-        var userResource = UserResourceFromEntityAssembler.ToResourceFromEntity(user);
+        var userResource = UserResourceFromEntityAssembler.ToResourceFromEntity(user!);
         return Ok(userResource);
     }
 
