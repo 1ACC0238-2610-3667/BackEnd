@@ -1,3 +1,3 @@
-﻿namespace com.split.backend.IAM.Domain.Model.Queries;
+namespace com.split.backend.IAM.Domain.Model.Queries;
 
-public record GetAllUsersQuery();
+public record GetAllUsersQuery(string? HouseholdId = null, string? Role = null, string? Email = null);
